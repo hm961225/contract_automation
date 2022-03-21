@@ -1,0 +1,14 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+flask = "*"
+spiffworkflow = "*"
+apache-airflow = {version = "==2.2.2", extras = ["google", "postgres"]}
+
+[dev-packages]
+
+[requires]
+python_version = "3.9"

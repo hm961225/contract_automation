@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "bpmn-js": "^8.8.3",
+    "bpmn-js-properties-panel": "^0.46.0",
+    "camunda-bpmn-moddle": "^6.1.1"
+  }
+}
