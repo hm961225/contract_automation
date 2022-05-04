@@ -21,30 +21,43 @@
 {% endmacro %}
 
   <div class="container">
-      <form class="form-local" role="form" action="/constract_add" method="post">
+      <form class="form-local" role="form" action="/add_contract" method="post">
+        <div class="row g-3 align-items-center">
+          <div class="col-auto">
+            <label for="contract_name" class="col-form-label">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</label>
+          </div>
+          <div class="col-auto">
+            <input type="text" id="contract_name" name="contract_name" class="form-control" aria-describedby="contractNameHelpInline">
+          </div>
+          <div class="col-auto">
+            <span id="contractNameHelpInline" class="form-text">
+            &emsp;&emsp;智能合约文件名称
+            </span>
+          </div>
+        </div>
+        <br>
+        <br>
         <div class="row g-3">
         <div class="col-md-2">
-          <a class = "btn background-color align-center" href="{{ url_for('contract_add_bp.function_show', func_name='func1') }}">函数1</a>
-          <br>
-          <br>
-          <button type="button" name="func2" class="btn background-color align-center">函数2</button>
-          <br>
-          <br>
-          <button type="button" name="func3" class="btn background-color align-center">函数3</button>
-          <br>
-          <br>
-          <button type="button" name="func4" class="btn background-color align-center">函数4</button>
-          <br>
-          <br>
+          {% for smart_contract_name in smart_contract_name_list %}
+            <a class="btn background-color align-center" href="{{ url_for('contract_add_bp.function_show', func_name=smart_contract_name) }}">{{smart_contract_name}}</a>
+            <br>
+            <br>
+          {% endfor %}
         </div>
         <div class="col-md-9">
-          <textarea class="form-control textarea" id="contract_text" name="contract_text" rows="20" aria-describedby="data_owner_help">{% if func_data != None %}{{ func_data }}{% endif %}
-          </textarea>
+          <div class="row g-3">
+            <div class="col-md-12">
+              <textarea class="form-control textarea" id="contract_text" name="contract_text" rows="20" aria-describedby="data_owner_help">{% if func_data != None %}{{ func_data }}{% endif %}
+              </textarea>
+            </div>
+          </div>
         </div>
         </div>
         <br>
         <br>
         <button type="submit" class="btn background-color align-center">生成智能合约</button>
+        <a class="btn background-color align-center" href="{{ url_for('contract_add_bp.remove_func_data') }}">清空内容</a>
       </form>
     </div>
 

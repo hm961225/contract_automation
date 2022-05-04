@@ -1,0 +1,89 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>learn</title>
+</head>
+
+<body>
+    <div id="app">
+        {{ message + '!' }}
+        {{name.test}}
+        <h2 v-text="message + '!'">使用v标签，无论内部有什么值都会被替换掉</h2>  
+        <p v-html="content"></p>
+        <input type="button" value="单击事件绑定" v-on:click="dolt">  
+        <input type="button" value="悬停事件绑定" v-on:monseenter="dolt">
+        <input type="button" value="双击事件绑定" v-on:dblclick="dolt">
+        <input type="button" value="另一方式" @dblclick="dolt">
+        <input type="button" v-bind:value="button_content" @click="show_content">
+        <input type="button" value="函数传参" @click="input_arg(num1, num2)">
+        <p v-show="content_show">隐藏内容</p>
+        <p v-if="content_show">隐藏内容2</p>
+        <input type="text" v-model="input_message" name="input1">>
+        <input type="button" value="双向绑定" @click="modify_text"></label>
+        <input type="button" value="get请求数据" @click="axios_get">
+        {{input_message}}
+        <p>{{get_res}}</p>
+
+        <ul>
+            <li v-for="(item, index) in arr">{{item}}-{{index}}</li>
+            <li v-for="(value, key) in name"> {{ value }} - {{key}} </li>
+        </ul>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js">
+        // 使用：axios.get(地址?key=value&key2=value2).then(function(response){},function(err){})
+        //      axios.post(地址, {key:value, key2: value}).then(function(response){}, function(err){})
+    </script>
+    
+    <script>
+        var app = new Vue ({
+            el: "#app",  // #为ID选择器，指示body中id=app的一项。new的这个Vue是用来管理id为app的元素的。所以在div中可以取到message的值
+            data: {
+                message: "你好",
+                name: {
+                    "test": "name1",  // 字典类型使用for的时候，(value, key) in name，即value在前，key在后
+                    "test2": "name2",  // 使用push和shift可以添加和删除元素。name.push({name: "value"}) 。 name.shift()
+                },
+                content: "<a href='http://www.baidu.com'>测试连接</a>",
+                content_show: false,
+                button_content: "显示隐藏内容",  // 使用v-bind可以改变html中标签的各个值
+                arr: [1, 2, 3, 4, 5],
+                input_message: "",  // v-model实现双向绑定，即更新该变量会同步到输入框中，同时在输入框中输入内容也会更新该变量的值,
+                get_res: "",
+            },
+            methods: {
+                dolt: function() {
+                    this.message = "修改后的值"  // 使用this关键字获取定义的变量
+                },
+                show_content: function() {
+                    if (this.content_show == false) {
+                        this.button_content = "关闭隐藏内容"
+                    } else {
+                        this.button_content = "显示隐藏内容"
+                    }
+                    this.content_show = !this.content_show
+                },
+                input_arg: function(num1, num2) {
+                    console.log(num1 + num2)
+                },
+                modify_text: function() {
+                    this.input_message = "添加值"
+                },
+                axios_get: function() {
+                    var that = this  // 原因见下注释
+                    axios.get("https://autumnfish.cn/api/joke/list?num=3")
+                    .then(function(response) {
+                        console.log(response)
+                        get_res = response.data.msg  // 直接在函数内部使用this代表的已经不是全局的this，而是函数的this。所以想要使用全局this，需要使用变量保存
+                        that.get_res = get_res
+                    }, function(err) {
+                        console.log(err)  // 也可以不写这个err函数 
+                    })
+                }
+            }
+        })
+    </script>
+</body>
+
+
+</html>

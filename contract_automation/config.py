@@ -1,9 +1,9 @@
 class Config(object):
     DEBUG = True
     SECRET_KEY = "djhqweiqda***123123dasweq"
-    # 数据库
-    SQLALCHEMY_DATABASE_URI = "mysql+pymysql://root:hm436464@localhost:3306/contract_automation?charset=utf8"
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    # 数据库 新版本的配置见models.__init__文件
+    # SQLALCHEMY_DATABASE_URI = "mysql+pymysql://root:hm436464@localhost:3306/contract_automation?charset=utf8"
+    # SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     #SAVE_PATH = app.root_path + '/files'
     '''SQList配置
